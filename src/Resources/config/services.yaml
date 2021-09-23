@@ -1,0 +1,25 @@
+services:
+
+  Adeliom\EasyConfigBundle\Controller\:
+    resource: '../../Controller'
+    autowire: true
+    autoconfigure: true
+    tags: [ 'controller.service_arguments' ]
+
+  easy_config.config_repository:
+    class: '%easy_config.config_repository%'
+    autowire: true
+    arguments:
+      - '@Doctrine\Persistence\ManagerRegistry'
+      - '%easy_config.config_class%'
+    tags: ['doctrine.repository_service']
+
+  Adeliom\EasyConfigBundle\Twig\EasyConfigExtension:
+    public: true
+    arguments:
+      - '@easy_config.config_repository'
+    tags:
+      - { name: twig.extension }
+
+  easy_config.twig_extension:
+    alias: Adeliom\EasyConfigBundle\Twig\EasyConfigExtension
