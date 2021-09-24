@@ -13,7 +13,7 @@ php bin/console doctrine:migration:migrate
 php bin/console doctrine:schema:update --force
 ```
 
-# Manage users in your Easyadmin dashboard
+# Manage configs in your Easyadmin dashboard
 
 Go to your dashboard controller, example : `src/Controller/Admin/DashboardController.php`
 
