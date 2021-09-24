@@ -1,27 +1,35 @@
 {
     "name": "agence-adeliom/easy-config-bundle",
     "type": "symfony-bundle",
+    "description": "A Symfony bundle for EasyAdmin that provide a configuration system",
+    "keywords": ["symfony", "easyadmin", "config"],
+    "homepage": "https://github.com/agence-adeliom/easy-config-bundle",
+    "support": {
+        "issues": "https://github.com/agence-adeliom/easy-config-bundle/issues",
+        "source": "https://github.com/agence-adeliom/easy-config-bundle"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Arnaud RITTI",
+            "homepage": "https://github.com/arnaud-ritti"
+        }
+    ],
     "require": {
         "php": "^7.4|^8.0",
         "ext-json": "*",
-        "symfony/config": "^4.0|^5.0",
-        "symfony/dependency-injection": "^4.0|^5.0",
-        "symfony/form": "^4.0|^5.0",
-        "symfony/framework-bundle": "^4.0|^5.0",
-        "symfony/http-foundation": "^4.0|^5.0",
-        "symfony/http-kernel": "^4.0|^5.0",
-        "symfony/options-resolver": "^4.0|^5.0",
-        "symfony/property-access": "^4.0|^5.0",
-        "symfony/routing": "^4.0|^5.0",
-        "symfony/twig-bundle": "^4.0|^5.0",
-        "doctrine/annotations": "^1.0",
-        "doctrine/doctrine-bundle": "^2.4",
-        "doctrine/doctrine-migrations-bundle": "^3.1",
-        "doctrine/orm": "^2.9",
-        "easycorp/easyadmin-bundle": "^3.4",
-        "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0",
-        "agence-adeliom/easy-common-bundle": "*@dev"
+        "symfony/config": "^4.4 || ^5.2",
+        "symfony/dependency-injection": "^4.4 || ^5.2",
+        "symfony/deprecation-contracts": "^2.2",
+        "symfony/event-dispatcher": "^4.4 || ^5.2",
+        "symfony/form": "^4.4 || ^5.2",
+        "symfony/framework-bundle": "^4.4 || ^5.2",
+        "symfony/http-kernel": "^4.4 || ^5.2",
+        "symfony/options-resolver": "^4.4 || ^5.2",
+        "symfony/property-access": "^4.4 || ^5.2",
+        "agence-adeliom/easy-common-bundle": "^1.0",
+        "agence-adeliom/easy-fields-bundle": "^1.0",
+        "agence-adeliom/easy-media-bundle": "^1.0"
     },
     "autoload": {
         "psr-4": {

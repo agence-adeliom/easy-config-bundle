@@ -2,6 +2,7 @@
 
 namespace Adeliom\EasyConfigBundle\Entity;
 
+use Adeliom\EasyCommonBundle\Traits\EntityIdTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -12,12 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Config
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use EntityIdTrait;
 
     /**
      * @ORM\Column(name="config", type="string", length=255, unique=true)
@@ -43,11 +39,6 @@ class Config
      * @ORM\Column(type="text", nullable=true)
      */
     private $value = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     /**
      * @return mixed
