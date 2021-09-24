@@ -2,7 +2,6 @@
 
 namespace Adeliom\EasyConfigBundle\Controller\Admin;
 
-use Adeliom\EasyAdminUserBundle\Entity\User;
 use Adeliom\EasyFieldsBundle\Admin\Field\ChoiceMaskField;
 use Adeliom\EasyMediaBundle\Admin\Field\EasyMediaField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -31,9 +30,7 @@ abstract class EasyConfigCrudController extends AbstractCrudController
 {
     public function configureCrud(Crud $crud): Crud
     {
-        return $crud
-            ->addFormTheme('@EasyMedia/form/easy-media.html.twig')
-            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig')
+        $crud
             ->addFormTheme('@EasyFields/form/choice_mask_widget.html.twig')
             ->setPageTitle(Crud::PAGE_INDEX, "easy_config.manage_configs")
             ->setPageTitle(Crud::PAGE_NEW, "easy_config.new_config")
@@ -46,7 +43,16 @@ abstract class EasyConfigCrudController extends AbstractCrudController
             ->setFormOptions([
                 'validation_groups' => ['Default']
             ])
-            ->setEntityPermission(User::ADMIN);
+            ->setEntityPermission("ROLE_ADMIN");
+
+        if (class_exists("\Adeliom\EasyMediaBundle\Form\EasyMediaType")) {
+            $crud->addFormTheme('@EasyMedia/form/easy-media.html.twig');
+        }
+        if (class_exists("\FOS\CKEditorBundle\Form\Type\CKEditorType")) {
+            $crud->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
+        }
+
+        return $crud;
     }
 
     public function configureFilters(Filters $filters): Filters
@@ -148,14 +154,14 @@ abstract class EasyConfigCrudController extends AbstractCrudController
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
-            if (self::isEditable("image", $config, $pageName)) {
+            if (self::isEditable("image", $config, $pageName) && class_exists("\Adeliom\EasyMediaBundle\Form\EasyMediaType")) {
                 yield EasyMediaField::new("image", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setFormTypeOption("restrictions_uploadTypes", ["image/*"])
                     ->setColumns('col-12');
             }
-            if (self::isEditable("file", $config, $pageName)) {
+            if (self::isEditable("file", $config, $pageName) && class_exists("\Adeliom\EasyMediaBundle\Form\EasyMediaType")) {
                 yield EasyMediaField::new("file", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
@@ -209,8 +215,8 @@ abstract class EasyConfigCrudController extends AbstractCrudController
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
-            if (self::isEditable("wysiwyg", $config, $pageName)) {
-                    yield TextareaField::new("wysiwyg", 'easy_config.form.value')
+            if (self::isEditable("wysiwyg", $config, $pageName) && class_exists("\FOS\CKEditorBundle\Form\Type\CKEditorType")) {
+                yield TextareaField::new("wysiwyg", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->renderAsHtml()
@@ -218,7 +224,7 @@ abstract class EasyConfigCrudController extends AbstractCrudController
                     ->setColumns('col-12');
             }
             if (self::isEditable("textarea", $config, $pageName)) {
-                    yield TextareaField::new("textarea", 'easy_config.form.value')
+                yield TextareaField::new("textarea", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
