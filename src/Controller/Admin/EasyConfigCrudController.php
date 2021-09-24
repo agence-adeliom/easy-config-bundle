@@ -153,94 +153,99 @@ abstract class EasyConfigCrudController extends AbstractCrudController
             ->setColumns('col-12 col-sm-6');
 
         if($config) {
-            if (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == "code" && $pageName == Crud::PAGE_DETAIL)) {
+            if (self::isEditable("code", $config, $pageName)) {
                 yield CodeEditorField::new("code", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
-            if (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == "image" && $pageName == Crud::PAGE_DETAIL)) {
+            if (self::isEditable("image", $config, $pageName)) {
                 yield EasyMediaField::new("image", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setFormTypeOption("restrictions_uploadTypes", ["image/*"])
                     ->setColumns('col-12');
             }
-            if (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == "file" && $pageName == Crud::PAGE_DETAIL)) {
+            if (self::isEditable("file", $config, $pageName)) {
                 yield EasyMediaField::new("file", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
-            if (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == "color" && $pageName == Crud::PAGE_DETAIL)) {
+            if (self::isEditable("color", $config, $pageName)) {
                 yield ColorField::new("color", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
-            if (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == "date" && $pageName == Crud::PAGE_DETAIL)) {
+            if (self::isEditable("date", $config, $pageName)) {
                 yield DateField::new("date", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
-            if (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == "time" && $pageName == Crud::PAGE_DETAIL)) {
+            if (self::isEditable("time", $config, $pageName)) {
                 yield TimeField::new("time", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
-            if (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == "datetime" && $pageName == Crud::PAGE_DETAIL)) {
+            if (self::isEditable("datetime", $config, $pageName)) {
                 yield DateTimeField::new("datetime", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
-            if (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == "email" && $pageName == Crud::PAGE_DETAIL)) {
+            if (self::isEditable("email", $config, $pageName)) {
                 yield EmailField::new("email", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
-            if (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == "number" && $pageName == Crud::PAGE_DETAIL)) {
+            if (self::isEditable("number", $config, $pageName)) {
                 yield NumberField::new("number", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
-            if (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == "code" && $pageName == Crud::PAGE_DETAIL)) {
+            if (self::isEditable("json", $config, $pageName)) {
                 yield CodeEditorField::new("json", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
-            if (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == "text" && $pageName == Crud::PAGE_DETAIL)) {
+            if (self::isEditable("text", $config, $pageName)) {
                 yield TextField::new("text", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
-            if (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == "wysiwyg" && $pageName == Crud::PAGE_DETAIL)) {
-                yield TextareaField::new("wysiwyg", 'easy_config.form.value')
+            if (self::isEditable("wysiwyg", $config, $pageName)) {
+                    yield TextareaField::new("wysiwyg", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->renderAsHtml()
                     ->setFormType(CKEditorType::class)
                     ->setColumns('col-12');
             }
-            if (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == "textarea" && $pageName == Crud::PAGE_DETAIL)) {
-                yield TextareaField::new("textarea", 'easy_config.form.value')
+            if (self::isEditable("textarea", $config, $pageName)) {
+                    yield TextareaField::new("textarea", 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
-            if (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == "boolean" && $pageName == Crud::PAGE_DETAIL)) {
+            if (self::isEditable("boolean", $config, $pageName)) {
                 yield BooleanField::new("boolean", 'easy_config.form.value_bool')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
         }
+    }
+
+    protected static function isEditable($type, $config, $pageName): bool
+    {
+        return (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == $type && $pageName == Crud::PAGE_DETAIL));
     }
 
     public static function getSubscribedServices()
