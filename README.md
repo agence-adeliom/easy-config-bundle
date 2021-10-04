@@ -1,23 +1,17 @@
 
 ![Adeliom](https://adeliom.com/public/uploads/2017/09/Adeliom_logo.png)
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=agence-adeliom_easy-config-bundle)](https://sonarcloud.io/dashboard?id=agence-adeliom_easy-config-bundle)
 
 # Easy Common Bundle
 
-Provide base utilities for Easyadmin.
-
-
-## Features
-
-- A Enum polyfill for PHP
-- Some Traits for entities
-
+Provide basic configuration manager for Easyadmin.
 
 ## Installation
 
 Install with composer
 
 ```bash
-composer require agence-adeliom/easy-common-bundle
+composer require agence-adeliom/easy-config-bundle
 ```
 
 ## Documentation
