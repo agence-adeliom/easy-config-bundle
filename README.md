@@ -22,7 +22,7 @@ composer require agence-adeliom/easy-common-bundle
 
 ## Documentation
 
-TODO
+[Check it here](doc/index.md)
 
 
 ## License

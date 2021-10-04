@@ -38,3 +38,20 @@ class DashboardController extends AbstractDashboardController
 
         ...
 ```
+
+# Usage
+
+```twig
+# Get value or null
+{{- easy_config('key') -}}
+
+# Get infos or null
+{{- easy_config('key', false) -}}
+
+# Result :
+{
+    type,
+    value,
+    raw_value
+}
+```
