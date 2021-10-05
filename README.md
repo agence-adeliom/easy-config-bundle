@@ -14,9 +14,65 @@ Install with composer
 composer require agence-adeliom/easy-config-bundle
 ```
 
+### Setup database
+
+#### Using doctrine migrations
+
+```bash
+php bin/console doctrine:migration:diff
+php bin/console doctrine:migration:migrate
+```
+
+#### Without
+
+```bash
+php bin/console doctrine:schema:update --force
+```
+
 ## Documentation
 
-[Check it here](doc/index.md)
+### Manage configs in your Easyadmin dashboard
+
+Go to your dashboard controller, example : `src/Controller/Admin/DashboardController.php`
+
+```php
+<?php
+
+namespace App\Controller\Admin;
+
+...
+use Adeliom\EasyConfigBundle\Controller\Admin\EasyConfigTrait;
+
+class DashboardController extends AbstractDashboardController
+{
+    ...
+    use EasyConfigTrait;
+
+    ...
+    public function configureMenuItems(): iterable
+    {
+        ...
+        yield from $this->configMenuEntry();
+
+        ...
+```
+
+### Usage
+
+```twig
+# Get value or null
+{{- easy_config('key') -}}
+
+# Get infos or null
+{{- easy_config('key', false) -}}
+
+# Result :
+{
+    type,
+    value,
+    raw_value
+}
+```
 
 
 ## License
