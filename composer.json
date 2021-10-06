@@ -1,6 +1,7 @@
 {
     "name": "agence-adeliom/easy-config-bundle",
     "type": "symfony-bundle",
+    "version": "1.0.0",
     "description": "A Symfony bundle for EasyAdmin that provide a configuration system",
     "keywords": ["symfony", "easyadmin", "config"],
     "homepage": "https://github.com/agence-adeliom/easy-config-bundle",
