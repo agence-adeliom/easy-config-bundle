@@ -59,7 +59,7 @@ class DashboardController extends AbstractDashboardController
 
 ### Usage
 
-```twig
+```php
 # Get value or null
 {{- easy_config('key') -}}
 
