@@ -243,7 +243,7 @@ abstract class EasyConfigCrudController extends AbstractCrudController
         return (!$config->getId() || ($config->getId() && $pageName == Crud::PAGE_EDIT) || ($config->getId() && $config->getType() == $type && $pageName == Crud::PAGE_DETAIL));
     }
 
-    public static function getSubscribedServices()
+    public static function getSubscribedServices(): array
     {
         return array_merge(parent::getSubscribedServices(), [
             ParameterBagInterface::class => '?'.ParameterBagInterface::class,
