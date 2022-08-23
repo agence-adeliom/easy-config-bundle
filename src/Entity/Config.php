@@ -6,40 +6,22 @@ use Adeliom\EasyCommonBundle\Traits\EntityIdTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-/**
- * @UniqueEntity("key")
- * @ORM\HasLifecycleCallbacks()
- * @ORM\MappedSuperclass(repositoryClass="Adeliom\EasyConfigBundle\Repository\ConfigRepository")
- */
+#[UniqueEntity('key')]
+#[ORM\HasLifecycleCallbacks]
+#[ORM\MappedSuperclass(repositoryClass: 'Adeliom\EasyConfigBundle\Repository\ConfigRepository')]
 class Config
 {
     use EntityIdTrait;
-
-    /**
-     * @ORM\Column(name="config", type="string", length=255, unique=true)
-     */
+    #[ORM\Column(name: 'config', type: 'string', length: 255, unique: true)]
     private $key;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $name;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $description = null;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $type;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $value = null;
-
     /**
      * @return mixed
      */
@@ -47,7 +29,6 @@ class Config
     {
         return $this->key;
     }
-
     /**
      * @param mixed $key
      * @return Config
@@ -57,7 +38,6 @@ class Config
         $this->key = $key;
         return $this;
     }
-
     /**
      * @return mixed
      */
@@ -65,7 +45,6 @@ class Config
     {
         return $this->name;
     }
-
     /**
      * @param mixed $name
      * @return Config
@@ -75,7 +54,6 @@ class Config
         $this->name = $name;
         return $this;
     }
-
     /**
      * @return null
      */
@@ -83,7 +61,6 @@ class Config
     {
         return $this->description;
     }
-
     /**
      * @param null $description
      * @return Config
@@ -93,7 +70,6 @@ class Config
         $this->description = $description;
         return $this;
     }
-
     /**
      * @return mixed
      */
@@ -101,7 +77,6 @@ class Config
     {
         return $this->type;
     }
-
     /**
      * @param mixed $type
      * @return Config
@@ -111,7 +86,6 @@ class Config
         $this->type = $type;
         return $this;
     }
-
     /**
      * @return null
      */
@@ -119,7 +93,6 @@ class Config
     {
         return $this->value;
     }
-
     /**
      * @param null $value
      * @return Config
@@ -129,7 +102,6 @@ class Config
         $this->value = $value;
         return $this;
     }
-
     /**
      * @return null
      */
@@ -151,7 +123,6 @@ class Config
         }
         return null;
     }
-
     /**
      * @param null $value
      * @return Config
@@ -163,7 +134,6 @@ class Config
         }
         return $this;
     }
-
     public function getBoolean()
     {
         if($this->type == 'boolean'){
@@ -171,7 +141,6 @@ class Config
         }
         return null;
     }
-
     public function setDate(?\DateTime $date)
     {
         if($this->type == 'date' && $date){
@@ -179,7 +148,6 @@ class Config
         }
         return null;
     }
-
     public function getDate()
     {
         if($this->type == 'date'){
@@ -191,7 +159,6 @@ class Config
         }
         return null;
     }
-
     public function setTime(?\DateTime $date)
     {
         if($this->type == 'time'){
@@ -199,7 +166,6 @@ class Config
         }
         return null;
     }
-
     public function getTime()
     {
         if($this->type == 'time'){
@@ -211,7 +177,6 @@ class Config
         }
         return null;
     }
-
     public function setDatetime(?\DateTime $date)
     {
         if($this->type == 'datetime' && $date){
@@ -219,7 +184,6 @@ class Config
         }
         return null;
     }
-
     public function getDatetime()
     {
         if($this->type == 'datetime'){
@@ -231,5 +195,4 @@ class Config
         }
         return null;
     }
-
 }
