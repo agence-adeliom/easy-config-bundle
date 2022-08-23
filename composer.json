@@ -29,9 +29,9 @@
         "symfony/options-resolver": "^4.4 || ^5.2 || ^6.0",
         "symfony/property-access": "^4.4 || ^5.2 || ^6.0",
         "easycorp/easyadmin-bundle": "^3.4 || ^v4.0.0",
-        "agence-adeliom/easy-common-bundle": "*",
-        "agence-adeliom/easy-fields-bundle": "*",
-        "agence-adeliom/easy-media-bundle": "*"
+        "agence-adeliom/easy-common-bundle": "^2.0",
+        "agence-adeliom/easy-fields-bundle": "^2.0",
+        "agence-adeliom/easy-media-bundle": "^2.0"
     },
     "autoload": {
         "psr-4": {
