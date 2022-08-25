@@ -8,20 +8,26 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[UniqueEntity('key')]
 #[ORM\HasLifecycleCallbacks]
-#[ORM\MappedSuperclass(repositoryClass: 'Adeliom\EasyConfigBundle\Repository\ConfigRepository')]
+#[ORM\MappedSuperclass(repositoryClass: \Adeliom\EasyConfigBundle\Repository\ConfigRepository::class)]
 class Config
 {
     use EntityIdTrait;
-    #[ORM\Column(name: 'config', type: 'string', length: 255, unique: true)]
-    private $key;
-    #[ORM\Column(type: 'string', length: 255)]
-    private $name;
-    #[ORM\Column(type: 'text', nullable: true)]
-    private $description = null;
-    #[ORM\Column(type: 'string', length: 255)]
-    private $type;
-    #[ORM\Column(type: 'text', nullable: true)]
-    private $value = null;
+
+    #[ORM\Column(name: 'config', type: \Doctrine\DBAL\Types\Types::STRING, length: 255, unique: true)]
+    private ?string $key = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
+    private ?string $name = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::STRING, length: 255)]
+    private ?string $type = null;
+
+    #[ORM\Column(type: \Doctrine\DBAL\Types\Types::TEXT, nullable: true)]
+    private ?string $value = null;
+
     /**
      * @return mixed
      */
@@ -29,15 +35,16 @@ class Config
     {
         return $this->key;
     }
+
     /**
-     * @param mixed $key
      * @return Config
      */
-    public function setKey($key)
+    public function setKey(mixed $key)
     {
         $this->key = $key;
         return $this;
     }
+
     /**
      * @return mixed
      */
@@ -45,15 +52,16 @@ class Config
     {
         return $this->name;
     }
+
     /**
-     * @param mixed $name
      * @return Config
      */
-    public function setName($name)
+    public function setName(mixed $name)
     {
         $this->name = $name;
         return $this;
     }
+
     /**
      * @return null
      */
@@ -61,6 +69,7 @@ class Config
     {
         return $this->description;
     }
+
     /**
      * @param null $description
      * @return Config
@@ -70,6 +79,7 @@ class Config
         $this->description = $description;
         return $this;
     }
+
     /**
      * @return mixed
      */
@@ -77,15 +87,16 @@ class Config
     {
         return $this->type;
     }
+
     /**
-     * @param mixed $type
      * @return Config
      */
-    public function setType($type)
+    public function setType(mixed $type)
     {
         $this->type = $type;
         return $this;
     }
+
     /**
      * @return null
      */
@@ -93,6 +104,7 @@ class Config
     {
         return $this->value;
     }
+
     /**
      * @param null $value
      * @return Config
@@ -102,13 +114,14 @@ class Config
         $this->value = $value;
         return $this;
     }
+
     /**
      * @return null
      */
     public function __get($name)
     {
-        if($this->type == $name){
-            switch ($name){
+        if ($this->type == $name) {
+            switch ($name) {
                 case 'date':
                     return $this->getDate();
                 case 'time':
@@ -121,78 +134,95 @@ class Config
                     return $this->value;
             }
         }
+
         return null;
     }
+
     /**
      * @param null $value
      * @return Config
      */
     public function __set($name, $value)
     {
-        if($name == $this->type){
+        if ($name == $this->type) {
             $this->value = $value;
         }
+
         return $this;
     }
+
     public function getBoolean()
     {
-        if($this->type == 'boolean'){
+        if ($this->type == 'boolean') {
             return (bool) $this->value;
         }
+
         return null;
     }
+
     public function setDate(?\DateTime $date)
     {
-        if($this->type == 'date' && $date){
+        if ($this->type == 'date' && $date) {
             $this->value = $date->format("Y-m-d");
         }
+
         return null;
     }
+
     public function getDate()
     {
-        if($this->type == 'date'){
+        if ($this->type == 'date') {
             try {
                 return new \DateTime($this->value);
-            }catch (\Exception $e){
+            } catch (\Exception) {
                 return null;
             }
         }
+
         return null;
     }
+
     public function setTime(?\DateTime $date)
     {
-        if($this->type == 'time'){
+        if ($this->type == 'time') {
             $this->value = $date->format("H:i:s");
         }
+
         return null;
     }
+
     public function getTime()
     {
-        if($this->type == 'time'){
+        if ($this->type == 'time') {
             try {
                 return new \DateTime($this->value);
-            }catch (\Exception $e){
+            } catch (\Exception) {
                 return null;
             }
         }
+
         return null;
     }
+
     public function setDatetime(?\DateTime $date)
     {
-        if($this->type == 'datetime' && $date){
+        if ($this->type == 'datetime' && $date) {
             $this->value = $date->format("Y-m-d H:i:s");
         }
+
         return null;
     }
+
     public function getDatetime()
     {
-        if($this->type == 'datetime'){
+        if ($this->type == 'datetime') {
             try {
                 return new \DateTime($this->value);
-            }catch (\Exception $e){
+            } catch (\Exception) {
                 return null;
             }
         }
+
         return null;
     }
 }

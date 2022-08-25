@@ -6,7 +6,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 
 trait EasyConfigTrait
 {
-
     public function configMenuEntry(): iterable
     {
         $parameterBag = $this->container->get("parameter_bag");
