@@ -90,7 +90,7 @@ abstract class EasyConfigCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $context = $this->get(AdminContextProvider::class)->getContext();
+        $context = $this->container->get(AdminContextProvider::class)->getContext();
         $config = $context->getEntity()->getInstance();
 
         if ($pageName == Crud::PAGE_NEW) {
