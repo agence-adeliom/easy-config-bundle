@@ -16,7 +16,8 @@ class ConfigRepository extends ServiceEntityRepository
     /**
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getByKey($key){
+    public function getByKey($key)
+    {
         $qb = $this->createQueryBuilder('c');
 
         $qb->where('c.key = :key')

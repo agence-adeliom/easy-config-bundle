@@ -7,13 +7,12 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-
 class EasyConfigExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
-        $config        = $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration($configuration, $configs);
 
         foreach ($config as $key => $value) {
             $container->setParameter('easy_config.'.$key, $value);
@@ -23,7 +22,7 @@ class EasyConfigExtension extends Extension
         $loader->load('services.yaml');
     }
 
-    public function getAlias()
+    public function getAlias(): string
     {
         return 'easy_config';
     }
