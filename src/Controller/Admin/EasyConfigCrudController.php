@@ -99,18 +99,17 @@ abstract class EasyConfigCrudController extends AbstractCrudController
             yield SlugField::new('key', 'easy_config.form.key')
                 ->setTargetFieldName('name')
                 ->setRequired(true)
-                ->setColumns('col-12 col-sm-4');
+                ->setColumns('col-12 col-sm-6');
         } else {
             yield TextField::new('key', 'easy_config.form.key')
                 ->setRequired(true)
                 ->setFormTypeOption('disabled', Crud::PAGE_EDIT == $pageName)
-                ->setColumns('col-12 col-sm-4');
+                ->setColumns('col-12 col-sm-6');
         }
 
-        yield TextField::new('name', 'easy_config.form.name')->setColumns('col-12 col-sm-4');
-
+        yield TextField::new('name', 'easy_config.form.name')->setColumns('col-12 col-sm-6');
+        yield TextareaField::new('description', 'easy_config.form.description');
         yield ChoiceMaskField::new('type', 'easy_config.form.type')
-            ->setColumns('col-12 col-sm-4')
             ->setFormTypeOption('disabled', Crud::PAGE_EDIT == $pageName)
             ->setChoices([
                 'easy_config.types.code' => 'code',
@@ -145,10 +144,8 @@ abstract class EasyConfigCrudController extends AbstractCrudController
                 'datetime' => ['datetime'],
             ])
             ->renderAsBadges()
-            ->setRequired(true);
-
-        yield TextareaField::new('description', 'easy_config.form.description')->setColumns('col-12');
-
+            ->setRequired(true)
+            ->setColumns('col-12 col-sm-6');
 
         if ($config) {
             if (self::isEditable('code', $config, $pageName)) {
