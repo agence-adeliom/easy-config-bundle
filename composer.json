@@ -2,7 +2,11 @@
     "name": "agence-adeliom/easy-config-bundle",
     "type": "symfony-bundle",
     "description": "A Symfony bundle for EasyAdmin that provide a configuration system",
-    "keywords": ["symfony", "easyadmin", "config"],
+    "keywords": [
+        "symfony",
+        "easyadmin",
+        "config"
+    ],
     "homepage": "https://github.com/agence-adeliom/easy-config-bundle",
     "license": "MIT",
     "authors": [
@@ -24,9 +28,9 @@
         "symfony/options-resolver": "^5.4 || ^6.0",
         "symfony/property-access": "^5.4 || ^6.0",
         "easycorp/easyadmin-bundle": "^3.4 || ^v4.0",
-        "agence-adeliom/easy-common-bundle": "^2.1",
-        "agence-adeliom/easy-fields-bundle": "^2.1",
-        "agence-adeliom/easy-media-bundle": "^2.1"
+        "agence-adeliom/easy-common-bundle": "^2.0.17",
+        "agence-adeliom/easy-fields-bundle": "^2.0.17",
+        "agence-adeliom/easy-media-bundle": "^2.0.17"
     },
     "autoload": {
         "psr-4": {
