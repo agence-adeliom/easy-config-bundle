@@ -93,7 +93,7 @@ abstract class EasyConfigCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         $context = $this->container->get(AdminContextProvider::class)->getContext();
-        $config = $context->getEntity()->getInstance();
+        $config = $context?->getEntity()->getInstance();
 
         if (Crud::PAGE_NEW == $pageName) {
             yield SlugField::new('key', 'easy_config.form.key')
@@ -251,7 +251,7 @@ abstract class EasyConfigCrudController extends AbstractCrudController
         }
     }
 
-    protected static function isEditable($type, $config, $pageName): bool
+    protected static function isEditable(string $type, object $config, string $pageName): bool
     {
         return !$config->getId() || ($config->getId() && Crud::PAGE_EDIT == $pageName) || ($config->getId() && $config->getType() == $type && Crud::PAGE_DETAIL == $pageName);
     }
