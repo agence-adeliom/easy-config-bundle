@@ -2,6 +2,7 @@
 
 namespace Adeliom\EasyConfigBundle\Twig;
 
+use Adeliom\EasyConfigBundle\Enum\EasyConfigType;
 use Adeliom\EasyConfigBundle\Repository\ConfigRepository;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
@@ -30,9 +31,9 @@ class EasyConfigExtension extends AbstractExtension
             if ($directValue) {
                 $value = $config->{$config->getType()};
 
-                if (in_array($config->getType(), ['code', 'wysiwyg', 'textarea', 'text'])) {
+                if (in_array($config->getType(), [EasyConfigType::CODE, EasyConfigType::WYSIWYG, EasyConfigType::TEXTAREA, EasyConfigType::TEXT])) {
                     return new Markup($value, 'UTF-8');
-                } elseif ('json' == $config->getType()) {
+                } elseif (EasyConfigType::JSON == $config->getType()) {
                     return json_decode((string) $value, true, 512, JSON_THROW_ON_ERROR);
                 } else {
                     return $value;

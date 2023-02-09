@@ -3,6 +3,7 @@
 namespace Adeliom\EasyConfigBundle\Entity;
 
 use Adeliom\EasyCommonBundle\Traits\EntityIdTrait;
+use Adeliom\EasyConfigBundle\Enum\EasyConfigType;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -129,13 +130,13 @@ class Config
     {
         if ($this->type == $name) {
             switch ($name) {
-                case 'date':
+                case EasyConfigType::DATE:
                     return $this->getDate();
-                case 'time':
+                case EasyConfigType::TIME:
                     return $this->getTime();
-                case 'datetime':
+                case EasyConfigType::DATETIME:
                     return $this->getDatetime();
-                case 'boolean':
+                case EasyConfigType::BOOLEAN:
                     return $this->getBoolean();
                 default:
                     return $this->value;
@@ -161,7 +162,7 @@ class Config
 
     public function getBoolean()
     {
-        if ('boolean' == $this->type) {
+        if (EasyConfigType::BOOLEAN == $this->type) {
             return (bool) $this->value;
         }
 
@@ -170,7 +171,7 @@ class Config
 
     public function setDate(?\DateTime $date)
     {
-        if ('date' == $this->type && $date) {
+        if (EasyConfigType::DATE == $this->type && $date) {
             $this->value = $date->format('Y-m-d');
         }
 
@@ -179,7 +180,7 @@ class Config
 
     public function getDate()
     {
-        if ('date' == $this->type) {
+        if (EasyConfigType::DATE == $this->type) {
             try {
                 return new \DateTime($this->value);
             } catch (\Exception) {
@@ -192,7 +193,7 @@ class Config
 
     public function setTime(?\DateTime $date)
     {
-        if ('time' == $this->type) {
+        if (EasyConfigType::TIME == $this->type) {
             $this->value = $date->format('H:i:s');
         }
 
@@ -201,7 +202,7 @@ class Config
 
     public function getTime()
     {
-        if ('time' == $this->type) {
+        if (EasyConfigType::TIME == $this->type) {
             try {
                 return new \DateTime($this->value);
             } catch (\Exception) {
@@ -214,7 +215,7 @@ class Config
 
     public function setDatetime(?\DateTime $date)
     {
-        if ('datetime' == $this->type && $date) {
+        if (EasyConfigType::DATETIME == $this->type && $date) {
             $this->value = $date->format('Y-m-d H:i:s');
         }
 
@@ -223,7 +224,7 @@ class Config
 
     public function getDatetime()
     {
-        if ('datetime' == $this->type) {
+        if (EasyConfigType::DATETIME == $this->type) {
             try {
                 return new \DateTime($this->value);
             } catch (\Exception) {
