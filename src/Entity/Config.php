@@ -30,7 +30,7 @@ class Config
     private ?string $value = null;
 
     /**
-     * @return mixed
+     * @return null|string
      */
     public function getKey()
     {
@@ -38,7 +38,9 @@ class Config
     }
 
     /**
-     * @return Config
+     * @param string $key
+     *
+     * @return $this
      */
     public function setKey(mixed $key)
     {
@@ -48,7 +50,7 @@ class Config
     }
 
     /**
-     * @return mixed
+     * @return null|string
      */
     public function getName()
     {
@@ -56,7 +58,9 @@ class Config
     }
 
     /**
-     * @return Config
+     * @param string $name
+     *
+     * @return $this
      */
     public function setName(mixed $name)
     {
@@ -66,7 +70,7 @@ class Config
     }
 
     /**
-     * @return null
+     * @return null|string
      */
     public function getDescription()
     {
@@ -74,9 +78,9 @@ class Config
     }
 
     /**
-     * @param null $description
+     * @param null|string $description
      *
-     * @return Config
+     * @return $this
      */
     public function setDescription($description)
     {
@@ -86,7 +90,7 @@ class Config
     }
 
     /**
-     * @return mixed
+     * @return null|string
      */
     public function getType()
     {
@@ -94,7 +98,9 @@ class Config
     }
 
     /**
-     * @return Config
+     * @param string $type
+     *
+     * @return $this
      */
     public function setType(mixed $type)
     {
@@ -104,7 +110,7 @@ class Config
     }
 
     /**
-     * @return null
+     * @return null|string
      */
     public function getValue()
     {
@@ -112,9 +118,9 @@ class Config
     }
 
     /**
-     * @param null $value
+     * @param null|string $value
      *
-     * @return Config
+     * @return $this
      */
     public function setValue($value)
     {
@@ -124,7 +130,7 @@ class Config
     }
 
     /**
-     * @return null
+     * @return mixed
      */
     public function __get($name)
     {
@@ -147,9 +153,9 @@ class Config
     }
 
     /**
-     * @param null $value
+     * @param null|string $value
      *
-     * @return Config
+     * @return $this
      */
     public function __set($name, $value)
     {
@@ -160,6 +166,9 @@ class Config
         return $this;
     }
 
+    /**
+     * @return null|bool
+     */
     public function getBoolean()
     {
         if (EasyConfigType::BOOLEAN == $this->type) {
@@ -169,6 +178,9 @@ class Config
         return null;
     }
 
+    /**
+     * @return null
+     */
     public function setDate(?\DateTime $date)
     {
         if (EasyConfigType::DATE == $this->type && $date) {
@@ -178,6 +190,9 @@ class Config
         return null;
     }
 
+    /**
+     * @return null|\DateTime
+     */
     public function getDate()
     {
         if (EasyConfigType::DATE == $this->type) {
@@ -191,6 +206,9 @@ class Config
         return null;
     }
 
+    /**
+     * @return null
+     */
     public function setTime(?\DateTime $date)
     {
         if (EasyConfigType::TIME == $this->type) {
@@ -200,6 +218,9 @@ class Config
         return null;
     }
 
+    /**
+     * @return null|\DateTime
+     */
     public function getTime()
     {
         if (EasyConfigType::TIME == $this->type) {
@@ -213,6 +234,9 @@ class Config
         return null;
     }
 
+    /**
+     * @return null
+     */
     public function setDatetime(?\DateTime $date)
     {
         if (EasyConfigType::DATETIME == $this->type && $date) {
@@ -222,6 +246,9 @@ class Config
         return null;
     }
 
+    /**
+     * @return null|\DateTime
+     */
     public function getDatetime()
     {
         if (EasyConfigType::DATETIME == $this->type) {
