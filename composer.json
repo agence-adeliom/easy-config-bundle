@@ -16,8 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=8.0.2",
-        "ext-json": "*",
+        "php": ">=8.2",
         "symfony/config": "^6.4 || ^7.0",
         "symfony/dependency-injection": "^6.4 || ^7.0",
         "symfony/deprecation-contracts": "^2.2 || ^v3.0",
@@ -28,13 +27,37 @@
         "symfony/options-resolver": "^6.4 || ^7.0",
         "symfony/property-access": "^6.4 || ^7.0",
         "easycorp/easyadmin-bundle": "^3.4 || ^v4.0",
-        "agence-adeliom/easy-common-bundle": "^2.1",
-        "agence-adeliom/easy-fields-bundle": "^2.1",
-        "agence-adeliom/easy-media-bundle": "^2.1"
+        "agence-adeliom/easy-common-bundle": "^3.0",
+        "agence-adeliom/easy-fields-bundle": "^3.0",
+        "agence-adeliom/easy-media-bundle": "^3.0"
     },
     "autoload": {
         "psr-4": {
             "Adeliom\\EasyConfigBundle\\": "src/"
         }
-    }
+    },
+    "minimum-stability" : "dev",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../easy-common-bundle",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "../easy-fields-bundle",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
+            "type": "path",
+            "url": "../easy-media-bundle",
+            "options": {
+                "symlink": true
+            }
+        }
+    ]
 }
