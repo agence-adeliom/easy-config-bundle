@@ -134,18 +134,13 @@ class Config
     public function __get($name)
     {
         if ($this->type == $name) {
-            switch ($name) {
-                case EasyConfigEnum::DATE->value:
-                    return $this->getDate();
-                case EasyConfigEnum::TIME->value:
-                    return $this->getTime();
-                case EasyConfigEnum::DATETIME->value:
-                    return $this->getDatetime();
-                case EasyConfigEnum::BOOLEAN->value:
-                    return $this->getBoolean();
-                default:
-                    return $this->value;
-            }
+            return match ($name) {
+                EasyConfigEnum::DATE->value => $this->getDate(),
+                EasyConfigEnum::TIME->value => $this->getTime(),
+                EasyConfigEnum::DATETIME->value => $this->getDatetime(),
+                EasyConfigEnum::BOOLEAN->value => $this->getBoolean(),
+                default => $this->value,
+            };
         }
 
         return null;

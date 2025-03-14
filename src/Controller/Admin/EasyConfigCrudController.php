@@ -62,6 +62,7 @@ abstract class EasyConfigCrudController extends AbstractCrudController
         foreach ($types as $type) {
             $choices['easy_config.types.'. $type] = $type;
         }
+
         return $choices;
     }
 
@@ -72,6 +73,7 @@ abstract class EasyConfigCrudController extends AbstractCrudController
         foreach ($types as $type) {
             $choices[$type] = [$type];
         }
+
         return $choices;
     }
 
@@ -101,7 +103,7 @@ abstract class EasyConfigCrudController extends AbstractCrudController
         $context = $this->container->get(AdminContextProvider::class)->getContext();
         $config = $context?->getEntity()->getInstance();
 
-        if (Crud::PAGE_NEW == $pageName) {
+        if (Crud::PAGE_NEW === $pageName) {
             yield SlugField::new('key', 'easy_config.form.key')
                 ->setTargetFieldName('name')
                 ->setRequired(true)
@@ -109,14 +111,14 @@ abstract class EasyConfigCrudController extends AbstractCrudController
         } else {
             yield TextField::new('key', 'easy_config.form.key')
                 ->setRequired(true)
-                ->setFormTypeOption('disabled', Crud::PAGE_EDIT == $pageName)
+                ->setFormTypeOption('disabled', Crud::PAGE_EDIT === $pageName)
                 ->setColumns('col-12 col-sm-6');
         }
 
         yield TextField::new('name', 'easy_config.form.name')->setColumns('col-12 col-sm-6');
         yield TextareaField::new('description', 'easy_config.form.description');
         yield ChoiceMaskField::new('type', 'easy_config.form.type')
-            ->setFormTypeOption('disabled', Crud::PAGE_EDIT == $pageName)
+            ->setFormTypeOption('disabled', Crud::PAGE_EDIT === $pageName)
             ->setChoices($this->getAvailableTypes())
             ->setMap($this->getFieldMap())
             ->renderAsBadges()
@@ -229,7 +231,7 @@ abstract class EasyConfigCrudController extends AbstractCrudController
 
     protected static function isEditable(string $type, object $config, string $pageName): bool
     {
-        return !$config->getId() || ($config->getId() && Crud::PAGE_EDIT == $pageName) || ($config->getId() && $config->getType() == $type && Crud::PAGE_DETAIL == $pageName);
+        return !$config->getId() || ($config->getId() && Crud::PAGE_EDIT === $pageName) || ($config->getId() && $config->getType() == $type && Crud::PAGE_DETAIL === $pageName);
     }
 
     public static function getSubscribedServices(): array
