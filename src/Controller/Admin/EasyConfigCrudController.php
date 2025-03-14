@@ -2,7 +2,7 @@
 
 namespace Adeliom\EasyConfigBundle\Controller\Admin;
 
-use Adeliom\EasyConfigBundle\Enum\EasyConfigType;
+use Adeliom\EasyConfigBundle\Enum\EasyConfigEnum;
 use Adeliom\EasyFieldsBundle\Admin\Field\ChoiceMaskField;
 use Adeliom\EasyMediaBundle\Admin\Field\EasyMediaField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
@@ -57,7 +57,7 @@ abstract class EasyConfigCrudController extends AbstractCrudController
 
     protected function getAvailableTypes() : array
     {
-        $types = EasyConfigType::getValues();
+        $types = EasyConfigEnum::getValues();
         $choices = [];
         foreach ($types as $type) {
             $choices['easy_config.types.'. $type] = $type;
@@ -67,7 +67,7 @@ abstract class EasyConfigCrudController extends AbstractCrudController
 
     protected function getFieldMap() : array
     {
-        $types = EasyConfigType::getValues();
+        $types = EasyConfigEnum::getValues();
         $choices = [];
         foreach ($types as $type) {
             $choices[$type] = [$type];
@@ -124,86 +124,86 @@ abstract class EasyConfigCrudController extends AbstractCrudController
             ->setColumns('col-12 col-sm-6');
 
         if ($config) {
-            if (self::isEditable(EasyConfigType::CODE, $config, $pageName)) {
-                yield CodeEditorField::new(EasyConfigType::CODE, 'easy_config.form.value')
+            if (self::isEditable(EasyConfigEnum::CODE->value, $config, $pageName)) {
+                yield CodeEditorField::new(EasyConfigEnum::CODE->value, 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
 
-            if (self::isEditable(EasyConfigType::IMAGE, $config, $pageName) && class_exists(\Adeliom\EasyMediaBundle\Form\EasyMediaType::class)) {
-                yield EasyMediaField::new(EasyConfigType::IMAGE, 'easy_config.form.value')
+            if (self::isEditable(EasyConfigEnum::IMAGE->value, $config, $pageName) && class_exists(\Adeliom\EasyMediaBundle\Form\EasyMediaType::class)) {
+                yield EasyMediaField::new(EasyConfigEnum::IMAGE->value, 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setFormTypeOption('restrictions_uploadTypes', ['image/*'])
                     ->setColumns('col-12');
             }
 
-            if (self::isEditable(EasyConfigType::FILE, $config, $pageName) && class_exists(\Adeliom\EasyMediaBundle\Form\EasyMediaType::class)) {
-                yield EasyMediaField::new(EasyConfigType::FILE, 'easy_config.form.value')
+            if (self::isEditable(EasyConfigEnum::FILE->value, $config, $pageName) && class_exists(\Adeliom\EasyMediaBundle\Form\EasyMediaType::class)) {
+                yield EasyMediaField::new(EasyConfigEnum::FILE->value, 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
 
-            if (self::isEditable(EasyConfigType::COLOR, $config, $pageName)) {
-                yield ColorField::new(EasyConfigType::COLOR, 'easy_config.form.value')
+            if (self::isEditable(EasyConfigEnum::COLOR->value, $config, $pageName)) {
+                yield ColorField::new(EasyConfigEnum::COLOR->value, 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
 
-            if (self::isEditable(EasyConfigType::DATE, $config, $pageName)) {
-                yield DateField::new(EasyConfigType::DATE, 'easy_config.form.value')
+            if (self::isEditable(EasyConfigEnum::DATE->value, $config, $pageName)) {
+                yield DateField::new(EasyConfigEnum::DATE->value, 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
 
-            if (self::isEditable(EasyConfigType::TIME, $config, $pageName)) {
-                yield TimeField::new(EasyConfigType::TIME, 'easy_config.form.value')
+            if (self::isEditable(EasyConfigEnum::TIME->value, $config, $pageName)) {
+                yield TimeField::new(EasyConfigEnum::TIME->value, 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
 
-            if (self::isEditable(EasyConfigType::DATETIME, $config, $pageName)) {
-                yield DateTimeField::new(EasyConfigType::DATETIME, 'easy_config.form.value')
+            if (self::isEditable(EasyConfigEnum::DATETIME->value, $config, $pageName)) {
+                yield DateTimeField::new(EasyConfigEnum::DATETIME->value, 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
 
-            if (self::isEditable(EasyConfigType::EMAIL, $config, $pageName)) {
-                yield EmailField::new(EasyConfigType::EMAIL, 'easy_config.form.value')
+            if (self::isEditable(EasyConfigEnum::EMAIL->value, $config, $pageName)) {
+                yield EmailField::new(EasyConfigEnum::EMAIL->value, 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
 
-            if (self::isEditable(EasyConfigType::NUMBER, $config, $pageName)) {
-                yield NumberField::new(EasyConfigType::NUMBER, 'easy_config.form.value')
+            if (self::isEditable(EasyConfigEnum::NUMBER->value, $config, $pageName)) {
+                yield NumberField::new(EasyConfigEnum::NUMBER->value, 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
 
-            if (self::isEditable(EasyConfigType::JSON, $config, $pageName)) {
-                yield CodeEditorField::new(EasyConfigType::JSON, 'easy_config.form.value')
+            if (self::isEditable(EasyConfigEnum::JSON->value, $config, $pageName)) {
+                yield CodeEditorField::new(EasyConfigEnum::JSON->value, 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
 
-            if (self::isEditable(EasyConfigType::TEXT, $config, $pageName)) {
-                yield TextField::new(EasyConfigType::TEXT, 'easy_config.form.value')
+            if (self::isEditable(EasyConfigEnum::TEXT->value, $config, $pageName)) {
+                yield TextField::new(EasyConfigEnum::TEXT->value, 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
 
-            if (self::isEditable(EasyConfigType::WYSIWYG, $config, $pageName) && class_exists(\FOS\CKEditorBundle\Form\Type\CKEditorType::class)) {
-                yield TextareaField::new(EasyConfigType::WYSIWYG, 'easy_config.form.value')
+            if (self::isEditable(EasyConfigEnum::WYSIWYG->value, $config, $pageName) && class_exists(\FOS\CKEditorBundle\Form\Type\CKEditorType::class)) {
+                yield TextareaField::new(EasyConfigEnum::WYSIWYG->value, 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->renderAsHtml()
@@ -211,15 +211,15 @@ abstract class EasyConfigCrudController extends AbstractCrudController
                     ->setColumns('col-12');
             }
 
-            if (self::isEditable(EasyConfigType::TEXTAREA, $config, $pageName)) {
-                yield TextareaField::new(EasyConfigType::TEXTAREA, 'easy_config.form.value')
+            if (self::isEditable(EasyConfigEnum::TEXTAREA->value, $config, $pageName)) {
+                yield TextareaField::new(EasyConfigEnum::TEXTAREA->value, 'easy_config.form.value')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
             }
 
-            if (self::isEditable(EasyConfigType::BOOLEAN, $config, $pageName)) {
-                yield BooleanField::new(EasyConfigType::BOOLEAN, 'easy_config.form.value_bool')
+            if (self::isEditable(EasyConfigEnum::BOOLEAN->value, $config, $pageName)) {
+                yield BooleanField::new(EasyConfigEnum::BOOLEAN->value, 'easy_config.form.value_bool')
                     ->setVirtual(true)
                     ->hideOnIndex()
                     ->setColumns('col-12');
