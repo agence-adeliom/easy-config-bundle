@@ -125,7 +125,15 @@ class Config
 
     public function __isset($name)
     {
-        return true;
+        return match ($name) {
+            'id' => isset($this->id),
+            'key' => isset($this->key),
+            'name' => isset($this->name),
+            'description' => isset($this->description),
+            'type' => isset($this->type),
+            'value' => isset($this->value),
+            default => false,
+        };
     }
 
     /**
@@ -143,7 +151,15 @@ class Config
             };
         }
 
-        return null;
+        return match ($name) {
+            'id' => $this->getId(),
+            'key' => $this->getKey(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'type' => $this->getType(),
+            'value' => $this->getValue(),
+            default => null,
+        };
     }
 
     /**
