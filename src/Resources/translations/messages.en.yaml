@@ -1,0 +1,29 @@
+easy_config:
+    manage_configs: Manage configurations
+    new_config: New configuration
+    edit_config: Edit configuration
+    config: configuration
+    configs: Configurations
+    form:
+        key: Key
+        name: Name
+        description: Description
+        type: Type
+        enabled: Enabled
+        value: Value
+        value_bool: Active
+    types:
+        code: Code
+        email: Email
+        image: Image
+        file: File
+        color: Color
+        date: Date
+        time: Time
+        datetime: Date and Time
+        number: Number
+        json: JSON
+        text: Text
+        textarea: Text area
+        wysiwyg: WYSIWYG
+        boolean: Boolean
