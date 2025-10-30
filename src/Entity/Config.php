@@ -125,6 +125,10 @@ class Config
 
     public function __isset($name)
     {
+        if (EasyConfigEnum::tryFrom($name)) {
+            return true;
+        }
+        
         return match ($name) {
             'id' => isset($this->id),
             'key' => isset($this->key),
