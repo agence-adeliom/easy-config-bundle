@@ -125,6 +125,15 @@ class Config
 
     public function __isset($name)
     {
+        /**
+         * If you get the error: 'Can't get a way to read the property "code" in class "App\Entity\EasyConfig\Config".'
+         * Then you should add your own code in children Config class that
+         * call parent::__isset() and then your logic that returns true
+         */
+        if (in_array($name, array_map(static fn(EasyConfigEnum $enum): string => $enum->value, EasyConfigEnum::cases()))) {
+            return true;
+        }
+
         return match ($name) {
             'id' => isset($this->id),
             'key' => isset($this->key),
