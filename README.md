@@ -108,5 +108,6 @@ class DashboardController extends AbstractDashboardController
 ## Authors
 
 - [@arnaud-ritti](https://github.com/arnaud-ritti)
+- [@jeandaviddaviet](https://github.com/JeanDavidDaviet)
 
   
