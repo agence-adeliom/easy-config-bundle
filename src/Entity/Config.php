@@ -130,7 +130,7 @@ class Config
          * Then you should add your own code in children Config class that
          * call parent::__isset() and then your logic that returns true
          */
-        if (in_array($name, array_map(static fn(EasyConfigEnum $enum): string => $enum->value, EasyConfigEnum::cases()))) {
+        if (EasyConfigEnum::tryFrom($name)) {
             return true;
         }
 
