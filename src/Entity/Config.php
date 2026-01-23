@@ -66,7 +66,7 @@ class Config
     }
 
     /**
-     * @return null
+     * @return null|string
      */
     public function getDescription()
     {
@@ -104,7 +104,7 @@ class Config
     }
 
     /**
-     * @return null
+     * @return mixed
      */
     public function getValue()
     {
@@ -129,7 +129,7 @@ class Config
     }
 
     /**
-     * @return null
+     * @return mixed
      */
     public function __get($name)
     {

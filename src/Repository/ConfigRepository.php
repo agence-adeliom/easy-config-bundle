@@ -14,6 +14,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 class ConfigRepository extends ServiceEntityRepository
 {
     /**
+     * @return Config|null
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getByKey($key)
