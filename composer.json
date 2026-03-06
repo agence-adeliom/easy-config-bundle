@@ -40,6 +40,11 @@
             "Adeliom\\EasyConfigBundle\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Adeliom\\EasyConfigBundle\\Tests\\": "tests/"
+        }
+    },
     "minimum-stability": "dev",
     "repositories": [
         {
