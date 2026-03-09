@@ -12,22 +12,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Option\EA;
-use EasyCorp\Bundle\EasyAdminBundle\Context\CrudContext;
-use EasyCorp\Bundle\EasyAdminBundle\Context\RequestContext;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
-use EasyCorp\Bundle\EasyAdminBundle\Contracts\Controller\DashboardControllerInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Contracts\Factory\MenuFactoryInterface;
-use EasyCorp\Bundle\EasyAdminBundle\Dto\AssetsDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
-use EasyCorp\Bundle\EasyAdminBundle\Registry\CrudControllerRegistry;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 #[CoversClass(\Adeliom\EasyConfigBundle\Controller\Admin\EasyConfigCrudController::class)]
 #[CoversClass(\Adeliom\EasyConfigBundle\Controller\Admin\EasyConfigTrait::class)]
@@ -127,47 +118,52 @@ final class EasyConfigCrudControllerTest extends TestCase
 
     private function createControllerWithConfig(?TestConfig $config): TestEasyConfigCrudController
     {
+        $metadata = $this->createMock(ClassMetadata::class);
+        $metadata->method('getIdentifierFieldNames')->willReturn(['id']);
+
+        $entityDto = new EntityDto(TestConfig::class, $metadata, null, $config);
+
+        $adminContextInterface = 'EasyCorp\Bundle\EasyAdminBundle\Contracts\Context\AdminContextInterface';
+        if (interface_exists($adminContextInterface)) {
+            $adminContext = $this->createMock($adminContextInterface);
+        } else {
+            if ((new \ReflectionClass(AdminContext::class))->isFinal()) {
+                self::markTestSkipped('AdminContext cannot be mocked in this EasyAdmin version.');
+            }
+            $adminContext = $this->getMockBuilder(AdminContext::class)
+                ->disableOriginalConstructor()
+                ->onlyMethods(['getEntity'])
+                ->getMock();
+        }
+        $adminContext->method('getEntity')->willReturn($entityDto);
+
+        $adminContextProviderInterface = 'EasyCorp\Bundle\EasyAdminBundle\Contracts\Provider\AdminContextProviderInterface';
+        if (interface_exists($adminContextProviderInterface)) {
+            $contextProvider = $this->createMock($adminContextProviderInterface);
+        } else {
+            $contextProvider = $this->getMockBuilder(AdminContextProvider::class)
+                ->disableOriginalConstructor()
+                ->onlyMethods(['getContext'])
+                ->getMock();
+        }
+        $contextProvider->method('getContext')->willReturn($adminContext);
+
         $controller = new TestEasyConfigCrudController();
         $container = new Container();
-        $container->set(AdminContextProvider::class, new AdminContextProvider($this->createRequestStackWithContext($config)));
+        $container->set(AdminContextProvider::class, $contextProvider);
         $controller->setContainer($container);
 
         return $controller;
     }
 
-    private function createRequestStackWithContext(?TestConfig $config): RequestStack
-    {
-        $request = Request::create('https://example.com/admin');
-        $request->attributes->set(EA::CONTEXT_REQUEST_ATTRIBUTE, $this->createAdminContext($request, $config));
-
-        $requestStack = new RequestStack();
-        $requestStack->push($request);
-
-        return $requestStack;
-    }
-
-    private function createAdminContext(Request $request, ?TestConfig $config): AdminContext
-    {
-        $metadata = $this->createMock(ClassMetadata::class);
-        $metadata->method('getIdentifierFieldNames')->willReturn(['id']);
-
-        return AdminContext::forTesting(
-            RequestContext::forTesting($request),
-            CrudContext::forTesting(
-                entityDto: new EntityDto(TestConfig::class, $metadata, null, $config),
-                crudControllers: new CrudControllerRegistry([], [], [TestConfig::class => TestEasyConfigCrudController::class], [])
-            )
-        );
-    }
-
     private function ensureOptionalFormClassesExist(): void
     {
         if (!class_exists(\Adeliom\EasyMediaBundle\Form\EasyMediaType::class)) {
-            class_alias(\stdClass::class, \Adeliom\EasyMediaBundle\Form\EasyMediaType::class);
+            class_alias(OptionalFormTypePlaceholder::class, \Adeliom\EasyMediaBundle\Form\EasyMediaType::class);
         }
 
         if (!class_exists(\FOS\CKEditorBundle\Form\Type\CKEditorType::class)) {
-            class_alias(\stdClass::class, \FOS\CKEditorBundle\Form\Type\CKEditorType::class);
+            class_alias(OptionalFormTypePlaceholder::class, \FOS\CKEditorBundle\Form\Type\CKEditorType::class);
         }
     }
 }
@@ -198,4 +194,8 @@ final class TestEasyConfigCrudController extends EasyConfigCrudController
 final class TestEasyConfigDashboardController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractController
 {
     use EasyConfigTrait;
+}
+
+class OptionalFormTypePlaceholder
+{
 }
